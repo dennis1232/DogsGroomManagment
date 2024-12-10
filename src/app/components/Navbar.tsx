@@ -51,7 +51,7 @@ const StyledLink = styled(Link)(({ active }: { active?: boolean }) => ({
 }));
 
 const Navbar = () => {
-  const { user, logout, loading } = useAuth();
+  const { user, logout } = useAuth();
   const pathname = usePathname();
 
   return (
@@ -110,7 +110,6 @@ const Navbar = () => {
                   All Appointments
                 </StyledLink>
                 <StyledLink
-               
                   color="primary"
                   href="/appointments/me"
                   active={pathname === "/appointments/me"}
