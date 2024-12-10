@@ -12,16 +12,38 @@ import {
   Link,
   CircularProgress,
 } from "@mui/material";
-import { Login as LoginIcon } from "@mui/icons-material";
-import { useRouter } from "next/navigation";
+import { PersonAdd } from "@mui/icons-material";
 
-const Login: React.FC = () => {
-  const [formData, setFormData] = useState({ username: "", password: "" });
+const Register: React.FC = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
+  const register = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => {
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
 
-  const router = useRouter();
+    if (!response.ok) {
+      throw new Error("Registration failed");
+    }
+
+    await login({ username, password });
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,11 +52,19 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await login(formData);
-      router.push("/");
+      await register({
+        username: formData.username,
+        password: formData.password,
+      });
       setLoading(false);
     } catch {
       setError("An unexpected error occurred.");
@@ -62,9 +92,9 @@ const Login: React.FC = () => {
             width: "100%",
           }}
         >
-          <LoginIcon sx={{ fontSize: 40, color: "primary.main", mb: 2 }} />
+          <PersonAdd sx={{ fontSize: 40, color: "primary.main", mb: 2 }} />
           <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
-            Sign in to your account
+            Create an Account
           </Typography>
 
           {error && (
@@ -99,8 +129,20 @@ const Login: React.FC = () => {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
+              autoComplete="new-password"
               value={formData.password}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              id="confirmPassword"
+              autoComplete="new-password"
+              value={formData.confirmPassword}
               onChange={handleChange}
             />
             <Button
@@ -113,13 +155,13 @@ const Login: React.FC = () => {
               {loading ? (
                 <CircularProgress size={24} color="inherit" />
               ) : (
-                "Sign in"
+                "Register"
               )}
             </Button>
 
             <Box sx={{ textAlign: "center" }}>
-              <Link href="/auth/register" variant="body2">
-                Don&apos;t have an account? Sign up
+              <Link href="/auth/login" variant="body2">
+                Already have an account? Sign in
               </Link>
             </Box>
           </Box>
@@ -129,4 +171,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -1,101 +1,127 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React from "react";
+import Link from "next/link";
+import { useAuth } from "@/context/authContext";
+import {
+  CircularProgress,
+  Typography,
+  Button,
+  Box,
+  List,
+  ListItem,
+} from "@mui/material";
+
+const Home: React.FC = () => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="100vh"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      minHeight="100vh"
+      bgcolor="grey.100"
+    >
+      <Typography variant="h1" component="h1" gutterBottom color="primary">
+        Pawfect Grooming Services
+      </Typography>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      {user ? (
+        <>
+          <Typography
+            variant="h6"
+            color="textSecondary"
+            align="center"
+            maxWidth="md"
+            gutterBottom
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Welcome back, {user.fullName}! What would you like to do today?
+          </Typography>
+          <Box display="flex" gap={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              href="/appointments/me"
+            >
+              My Appointments
+            </Button>
+            <Button
+              variant="contained"
+              color="success"
+              component={Link}
+              href="/appointments/new"
+            >
+              Book New Appointment
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              component={Link}
+              href="/appointments"
+            >
+              View all Appointments
+            </Button>
+          </Box>
+        </>
+      ) : (
+        <>
+          <Typography
+            variant="h6"
+            color="textSecondary"
+            align="center"
+            maxWidth="md"
+            gutterBottom
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            Professional dog grooming services tailored to your furry
+            friend&apos;s needs. Book appointments, track grooming history, and
+            keep your pet looking their best.
+          </Typography>
+          <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
+            <List>
+              <ListItem>✓ Full-service grooming and bathing</ListItem>
+              <ListItem>✓ Nail trimming and ear cleaning</ListItem>
+              <ListItem>✓ Breed-specific styling</ListItem>
+              <ListItem>✓ Online appointment scheduling</ListItem>
+            </List>
+          </Box>
+          <Box display="flex" gap={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              href="/auth/login"
+            >
+              Login
+            </Button>
+            <Button
+              variant="contained"
+              color="success"
+              component={Link}
+              href="/auth/register"
+            >
+              Book Your First Appointment
+            </Button>
+          </Box>
+        </>
+      )}
+    </Box>
   );
-}
+};
+
+export default Home;
