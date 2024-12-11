@@ -1,4 +1,3 @@
-````markdown
 # Dog Grooming Client
 
 A Next.js application for managing dog grooming appointments.
@@ -14,11 +13,10 @@ A Next.js application for managing dog grooming appointments.
 1. Clone the repository and install dependencies:
 
 ```bash
-git clone [repository-url]
+git clone https://github.com/dennis1232/DogsGroomManagment.git
 cd dog-grooming
 npm install
 ```
-````
 
 2. Create a `.env.local` file in the root directory:
 
@@ -50,7 +48,6 @@ The application will be available at `http://localhost:3000`
 - Material-UI
 - NextAuth.js
 - Axios
-- React Big Calendar
 - TailwindCSS
 
 ## Project Structure
