@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+````markdown
+# Dog Grooming Client
 
-## Getting Started
+A Next.js application for managing dog grooming appointments.
 
-First, run the development server:
+## Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Running instance of the Dog Grooming API
+
+## Setup
+
+1. Clone the repository and install dependencies:
+
+```bash
+git clone [repository-url]
+cd dog-grooming
+npm install
+```
+````
+
+2. Create a `.env.local` file in the root directory:
+
+```bash
+NEXTAUTH_SECRET=your-secret-key
+NEXTAUTH_URL=http://localhost:3000
+NEXT_PUBLIC_API_URL=http://localhost:5035
+```
+
+3. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- User authentication
+- Appointment scheduling
+- Appointment management (view, edit, cancel)
+- Responsive design with Material-UI
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js 14
+- TypeScript
+- Material-UI
+- NextAuth.js
+- Axios
+- React Big Calendar
+- TailwindCSS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `/src/app` - Application pages and components
+- `/src/context` - React context providers
+- `/src/lib` - Utilities and configurations
+- `/src/models` - TypeScript interfaces
+- `/src/styles` - Global styles and theme
 
-## Deploy on Vercel
+## API Integration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The client connects to the Dog Grooming API. Ensure the API is running at `http://localhost:5035` or update the `NEXT_PUBLIC_API_URL` accordingly.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+
+This README provides essential information for setting up and running the client project while keeping it concise and focused on the key details.
+```
