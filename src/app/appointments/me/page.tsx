@@ -54,7 +54,7 @@ const MyAppointments = () => {
   }, [fetchAppointments, loading, user]);
 
   const handleEdit = (appointment: Appointment) => {
-    router.push(`/appointments/${appointment.id}`);
+    router.push(`/appointments/edit/${appointment.id}`);
   };
 
   const handleDelete = async (appointmentId: number) => {

@@ -31,7 +31,7 @@ const AppointmentsPage: React.FC = () => {
     try {
       setLoading((prev) => ({ ...prev, page: true }));
       const data = await getAppointments();
-      setAppointments(data);
+      setAppointments(await data);
     } catch (err) {
       console.error("Error fetching appointments:", err);
     } finally {
