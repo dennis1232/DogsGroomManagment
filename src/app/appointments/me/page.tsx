@@ -251,7 +251,7 @@ const MyAppointments = () => {
                     <AccessTimeIcon sx={{ color: "primary.light" }} />
                     <Typography sx={{ color: "#34495e", fontWeight: 500 }}>
                       {new Date(appointment.appointmentTime).toLocaleTimeString(
-                        [],
+                        ["he-IL"],
                         {
                           hour: "2-digit",
                           minute: "2-digit",

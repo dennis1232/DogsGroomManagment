@@ -61,7 +61,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
     customerName: user?.fullName || "",
     petName: appointment?.petName || "",
     petSize: appointment?.petSize || "",
-    appointmentDate: appointment
+    appointmentDate: appointment?.appointmentTime
       ? new Date(appointment.appointmentTime).toISOString().split("T")[0]
       : "",
     appointmentTime: appointment ? appointment.appointmentTime.toString() : "",
@@ -259,7 +259,9 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         >
           {availableTimes?.map((time) => (
             <MenuItem key={time.toString()} value={time.toString()}>
-              {new Date(time).toLocaleTimeString([], {
+              {new Date(
+                new Date(time).setHours(new Date(time).getHours() - 2)
+              ).toLocaleTimeString(["he-IL"], {
                 hour: "2-digit",
                 minute: "2-digit",
               })}

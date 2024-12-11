@@ -13,36 +13,41 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { PersonAdd } from "@mui/icons-material";
+import axiosInstance from "@/lib/axiosInstance";
+import { useRouter } from "next/navigation";
 
 const Register: React.FC = () => {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     confirmPassword: "",
+    fullName: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { login } = useAuth();
+
   const register = async ({
     username,
     password,
+    fullName,
   }: {
     username: string;
     password: string;
+    fullName: string;
   }) => {
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
+    const response = await axiosInstance.post("/customers/register", {
+      username,
+      password,
+      fullName,
     });
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error("Registration failed");
     }
 
-    await login({ username, password });
+    router.push("/auth/login");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,6 +69,7 @@ const Register: React.FC = () => {
       await register({
         username: formData.username,
         password: formData.password,
+        fullName: formData.fullName,
       });
       setLoading(false);
     } catch {
@@ -113,11 +119,22 @@ const Register: React.FC = () => {
               margin="normal"
               required
               fullWidth
+              id="fullName"
+              label="Full Name"
+              name="fullName"
+              autoComplete="name"
+              autoFocus
+              value={formData.fullName}
+              onChange={handleChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               id="username"
               label="Username"
               name="username"
               autoComplete="username"
-              autoFocus
               value={formData.username}
               onChange={handleChange}
             />

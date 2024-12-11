@@ -44,7 +44,6 @@ const AppointmentsPage: React.FC = () => {
   }, []);
 
   const handleEdit = (id: number) => {
-    if(id && id !==0)
     router.push(`/appointments/edit/${id}`);
   };
 
