@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Container, Box, Typography, Paper } from "@mui/material";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
@@ -27,21 +27,22 @@ const AppointmentsPage: React.FC = () => {
     edit: {},
   });
 
-  const fetchAppointments = async () => {
+  const fetchAppointments = useCallback(async () => {
     try {
       setLoading((prev) => ({ ...prev, page: true }));
       const data = await getAppointments();
-      setAppointments(await data);
+      console.log(data);
+      setAppointments(data);
     } catch (err) {
       console.error("Error fetching appointments:", err);
     } finally {
       setLoading((prev) => ({ ...prev, page: false }));
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchAppointments();
-  }, []);
+  }, [fetchAppointments]);
 
   const handleEdit = (id: number) => {
     router.push(`/appointments/edit/${id}`);

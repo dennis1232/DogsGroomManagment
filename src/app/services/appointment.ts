@@ -47,6 +47,7 @@ export const getAppointments = async (params?: GetAppointmentsParams) => {
     const response = await axiosInstance.get(APIEndpoints.appointments, {
       params: params,
     });
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error("Error fetching appointments:", error);
