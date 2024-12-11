@@ -67,8 +67,8 @@ The client connects to the Dog Grooming API. Ensure the API is running at `http:
 This README provides essential information for setting up and running the client project while keeping it concise and focused on the key details.
 ```
 
-![Logo](public/photo1.png)
-![Logo](public/photo2.png)
-![Logo](public/photo3.png)
-![Logo](public/photo4.png)
-![Logo](public/photo5.png)
+![Logo](public/photo1.jpeg)
+![Logo](public/photo2.jpeg)
+![Logo](public/photo3.jpeg)
+![Logo](public/photo4.jpeg)
+![Logo](public/photo5.jpeg)
