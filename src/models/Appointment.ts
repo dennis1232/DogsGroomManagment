@@ -3,8 +3,8 @@ export type Appointment = {
   customerId: number;
   petName: string;
   petSize: string;
-  appointmentTime: string; // DateTime will be received as ISO string
+  appointmentTime: string;
   groomingDuration: number;
   customerName?: string;
-  createdAt: string; // DateTime will be received as ISO string
+  createdAt: string;
 };

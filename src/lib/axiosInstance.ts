@@ -10,19 +10,12 @@ const createAxiosInstance = (): AxiosInstance => {
     },
   });
 
-  // Request Interceptor
   instance.interceptors.request.use(
     async (config) => {
       const session = await getSession();
 
       if (session?.user?.accessToken) {
-        console.log({ session });
-
-        try {
-          config.headers.Authorization = `Bearer ${session.user.accessToken}`;
-        } catch (error) {
-          console.error("Error fetching session:", error);
-        }
+        config.headers.Authorization = `Bearer ${session.user.accessToken}`;
       }
       return config;
     },

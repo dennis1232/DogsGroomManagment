@@ -16,15 +16,19 @@ export const createAppointment = async (data: CreateAppointmentRequest) => {
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
 export const getAvailableTimes = async (date: string, duration: number) => {
-  const response = await axiosInstance.get(APIEndpoints.availableTimes, {
-    params: { date, duration },
-  });
-  return response.data;
+  try {
+    const response = await axiosInstance.get(APIEndpoints.availableTimes, {
+      params: { date, duration },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const getCustomerAppointments = async () => {
@@ -47,10 +51,8 @@ export const getAppointments = async (params?: GetAppointmentsParams) => {
     const response = await axiosInstance.get(APIEndpoints.appointments, {
       params: params,
     });
-    console.log(response);
     return response.data;
   } catch (error) {
-    console.error("Error fetching appointments:", error);
     throw error;
   }
 };
@@ -62,7 +64,6 @@ export const cancelAppointment = async (appointmentId: number) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error canceling appointment:", error);
     throw error;
   }
 };
@@ -74,7 +75,6 @@ export const getAppointment = async (id: string) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching appointment:", error);
     throw error;
   }
 };
@@ -90,7 +90,6 @@ export const updateAppointment = async (
     );
     return response.data;
   } catch (error) {
-    console.error("Error updating appointment:", error);
     throw error;
   }
 };

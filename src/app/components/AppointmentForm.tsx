@@ -143,11 +143,10 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
 
     if (name === "petSize") {
       updatedData.groomingDuration = groomingDurations[value as string] || 0;
-      updatedData.appointmentTime = ""; // Reset time when size changes
+      updatedData.appointmentTime = "";
     }
 
     setFormData((prev) => ({ ...prev, ...updatedData }));
-    // Clear error when field is updated
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
