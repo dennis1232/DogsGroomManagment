@@ -62,11 +62,6 @@ The application will be available at `http://localhost:3000`
 
 The client connects to the Dog Grooming API. Ensure the API is running at `http://localhost:5035` or update the `NEXT_PUBLIC_API_URL` accordingly.
 
-```
-
-This README provides essential information for setting up and running the client project while keeping it concise and focused on the key details.
-```
-
 ![Logo](public/photo3.jpeg)
 ![Logo](public/photo1.jpeg)
 ![Logo](public/photo2.jpeg)
