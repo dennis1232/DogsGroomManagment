@@ -1,4 +1,3 @@
-// components/AppointmentModal.tsx
 import React, { useMemo } from "react";
 import {
   Dialog,
