@@ -1,4 +1,3 @@
-// dog-grooming/src/app/appointments/new/page.tsx
 "use client";
 
 import { Box, Container, Paper, Typography } from "@mui/material";
