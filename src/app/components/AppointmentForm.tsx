@@ -73,15 +73,16 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  const { showSuccess } = useToast();
+  const { showSuccess, showError } = useToast();
 
   const fetchAvailableTimes = useCallback(async () => {
     try {
-      const response = await getAvailableTimes(
-        formData.appointmentDate,
+      const appointmentDate = new Date(formData.appointmentDate);
+
+      const response: Date[] = await getAvailableTimes(
+        appointmentDate,
         formData.groomingDuration
       );
-
       setAvailableTimes(response);
     } catch (error) {
       console.error("Error fetching available times:", error);
@@ -179,6 +180,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
       router.push("/appointments/me");
     } catch (error) {
       console.error("Appointment operation failed:", error);
+      showError(ToastMessages.appointmentCreationFailed);
     } finally {
       setIsSubmitting(false);
     }
@@ -258,12 +260,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({
         >
           {availableTimes?.map((time) => (
             <MenuItem key={time.toString()} value={time.toString()}>
-              {new Date(
-                new Date(time).setHours(new Date(time).getHours() - 2)
-              ).toLocaleTimeString(["he-IL"], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
+              {new Date(time).toLocaleTimeString()}
             </MenuItem>
           ))}
         </Select>

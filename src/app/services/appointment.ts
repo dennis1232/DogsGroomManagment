@@ -10,9 +10,14 @@ export interface CreateAppointmentRequest {
 
 export const createAppointment = async (data: CreateAppointmentRequest) => {
   try {
+    const appointmentData = {
+      ...data,
+      appointmentTime: new Date(data.appointmentTime).toISOString(),
+    };
+
     const response = await axiosInstance.post(
       APIEndpoints.createAppointment,
-      data
+      appointmentData
     );
     return response.data;
   } catch (error) {
@@ -20,12 +25,21 @@ export const createAppointment = async (data: CreateAppointmentRequest) => {
   }
 };
 
-export const getAvailableTimes = async (date: string, duration: number) => {
+export const getAvailableTimes = async (date: Date, duration: number) => {
   try {
+    const utcDate = new Date(
+      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0)
+    );
+
     const response = await axiosInstance.get(APIEndpoints.availableTimes, {
-      params: { date, duration },
+      params: {
+        date: utcDate.toISOString(),
+        duration,
+      },
     });
-    return response.data;
+
+    // Response times are in UTC, convert to local timezone for display
+    return response.data.map((time: string) => new Date(time));
   } catch (error) {
     throw error;
   }
